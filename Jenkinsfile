@@ -5,6 +5,11 @@ pipeline {
     }
     agent any
     stages {
+        stage('Check docker'){
+            steps{
+                echo "docker -v"
+            }
+        }
         stage('Dockerize') {
             steps {
                 // Get some code from a GitHub repository
