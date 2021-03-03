@@ -5,26 +5,29 @@ pipeline {
     }
     agent any
     stages {
-        stage('Build') {
+        stage('Dockerize') {
             steps {
                 // Get some code from a GitHub repository
                 git 'https://github.com/SaprykinVitaliy/Servlets'
 
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                //sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
+                sh "docker build -t notes ."
+                sh "docker-compose up -d --remove-orphans"
+                sh "docker image prune -f"
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
 
-            post {
+            /* post {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
+                    junit '**//* target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target *//*.jar'
                 }
-            }
+            } */
         }
     }
 }
