@@ -1,11 +1,10 @@
 pipeline {
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+    }
     agent any
     stages {
-        stage('Maven prep'){
-            export MAVEN_HOME="$MAVEN_HOME"
-            export PATH=$PATH:$MAVEN_HOME/bin
-            mvn --version
-        }
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
