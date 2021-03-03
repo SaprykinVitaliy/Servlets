@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage('Maven prep'){
+            export MAVEN_HOME="$MAVEN_HOME"
+            export PATH=$PATH:$MAVEN_HOME/bin
+            mvn --version
+        }
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
