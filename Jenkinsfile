@@ -6,8 +6,8 @@ pipeline {
     agent any
     stages {
         stage('Check docker'){
-            steps{
-                echo "docker -v"
+            steps {
+                sh "docker -v"
             }
         }
         stage('Dockerize') {
